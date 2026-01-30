@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Manifestacion - {{ client.company }}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="mb-6">
+        <a href="{% url 'client-expediente' client.pk %}" class="text-indigo-600 hover:text-indigo-800 text-sm">&larr; Volver al expediente</a>
+        <h1 class="text-2xl font-bold text-gray-900 mt-2">{{ manifest.get_manifest_type_display }}</h1>
+        <p class="text-gray-600">{{ client.company }}</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+            {% if manifest.is_active %}
+            <span class="inline-flex px-3 py-1 text-sm rounded-full bg-green-100 text-green-800">Vigente</span>
+            {% else %}
+            <span class="inline-flex px-3 py-1 text-sm rounded-full bg-gray-100 text-gray-800">Reemplazada</span>
+            {% endif %}
+            <span class="text-sm text-gray-500">{{ manifest.signature_date|date:"d/m/Y" }}</span>
+        </div>
+
+        <div class="prose max-w-none mb-6">
+            <p class="whitespace-pre-wrap text-gray-700">{{ manifest.content }}</p>
+        </div>
+
+        <dl class="grid grid-cols-2 gap-4 pt-4 border-t">
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Firmado por</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ manifest.signed_by_name }}</dd>
+            </div>
+            {% if manifest.signed_by_position %}
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Cargo</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ manifest.signed_by_position }}</dd>
+            </div>
+            {% endif %}
+            {% if manifest.signature_place %}
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Lugar</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ manifest.signature_place }}</dd>
+            </div>
+            {% endif %}
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Registrado por</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ manifest.created_by.get_full_name|default:manifest.created_by.username }}</dd>
+            </div>
+        </dl>
+
+        {% if manifest.signed_document %}
+        <div class="mt-4 pt-4 border-t">
+            <a href="{{ manifest.signed_document.url }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700" target="_blank">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                Ver Documento Firmado
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if history %}
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Historial de Manifestaciones</h2>
+        <div class="space-y-3">
+            {% for h in history %}
+            <div class="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                    <span class="text-sm text-gray-900">{{ h.signature_date|date:"d/m/Y" }}</span>
+                    <span class="text-sm text-gray-500 ml-2">por {{ h.signed_by_name }}</span>
+                </div>
+                <span class="text-xs text-gray-400">Reemplazada</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

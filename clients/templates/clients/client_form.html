@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto space-y-6">
+    <!-- Header -->
+    <div>
+        <a href="{% url 'client-list' %}" class="text-indigo-600 hover:text-indigo-800 text-sm mb-2 inline-block">&larr; Volver a clientes</a>
+        <h1 class="text-2xl font-bold text-gray-900">{{ title }}</h1>
+    </div>
+
+    <!-- Formulario -->
+    <form method="post" class="bg-white rounded-lg shadow-md">
+        {% csrf_token %}
+
+        <!-- Informacion de la Empresa -->
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Informacion de la Empresa</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2">
+                    <label for="id_company" class="block text-sm font-medium text-gray-700">Nombre de la Empresa *</label>
+                    {{ form.company }}
+                    {% if form.company.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.company.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="id_rfc" class="block text-sm font-medium text-gray-700">RFC</label>
+                    {{ form.rfc }}
+                    {% if form.rfc.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.rfc.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="id_phone" class="block text-sm font-medium text-gray-700">Telefono</label>
+                    {{ form.phone }}
+                    {% if form.phone.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.phone.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="id_user" class="block text-sm font-medium text-gray-700">Usuario del Portal</label>
+                    {{ form.user }}
+                    <p class="mt-1 text-xs text-gray-500">Usuario que podra acceder al portal de cliente</p>
+                    {% if form.user.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.user.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                <div class="flex items-center">
+                    <div class="flex items-center h-full pt-6">
+                        {{ form.show }}
+                        <label for="id_show" class="ml-2 text-sm text-gray-700">Cliente activo (visible en el sistema)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direccion -->
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Direccion</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2">
+                    <label for="id_street" class="block text-sm font-medium text-gray-700">Calle</label>
+                    {{ form.street }}
+                </div>
+                <div>
+                    <label for="id_ext_number" class="block text-sm font-medium text-gray-700">No. Exterior</label>
+                    {{ form.ext_number }}
+                </div>
+                <div>
+                    <label for="id_int_number" class="block text-sm font-medium text-gray-700">No. Interior</label>
+                    {{ form.int_number }}
+                </div>
+                <div>
+                    <label for="id_suburb" class="block text-sm font-medium text-gray-700">Colonia</label>
+                    {{ form.suburb }}
+                </div>
+                <div>
+                    <label for="id_zip_code" class="block text-sm font-medium text-gray-700">Codigo Postal</label>
+                    {{ form.zip_code }}
+                </div>
+                <div>
+                    <label for="id_locality" class="block text-sm font-medium text-gray-700">Localidad</label>
+                    {{ form.locality }}
+                </div>
+                <div>
+                    <label for="id_city" class="block text-sm font-medium text-gray-700">Ciudad</label>
+                    {{ form.city }}
+                </div>
+                <div>
+                    <label for="id_state" class="block text-sm font-medium text-gray-700">Estado</label>
+                    {{ form.state }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Notas -->
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Informacion Adicional</h2>
+            <div>
+                <label for="id_notes" class="block text-sm font-medium text-gray-700">Notas</label>
+                {{ form.notes }}
+                {% if form.notes.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.notes.errors.0 }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="p-6 bg-gray-50 flex justify-end space-x-3">
+            <a href="{% url 'client-list' %}" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">
+                Cancelar
+            </a>
+            <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg">
+                {{ button_text }}
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,501 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle de Envío - {{ shipment.reference }}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header con acciones -->
+    <div class="flex justify-between items-center">
+        <div>
+            <a href="{% url 'shipment-list' %}" class="text-blue-600 hover:text-blue-800 text-sm mb-2 inline-block">&larr; Volver a la lista</a>
+            <h2 class="text-3xl font-bold text-gray-900">{{ shipment.reference|default:"Envío sin referencia" }}</h2>
+        </div>
+        <div class="flex gap-2">
+            <a href="{% url 'shipment-edit' shipment.pk %}" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg">Editar</a>
+            <a href="{% url 'shipment-delete' shipment.pk %}" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg">Eliminar</a>
+        </div>
+    </div>
+
+    <!-- Información principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Detalles del envío -->
+        <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Información del Envío</h3>
+            <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Referencia</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.reference|default:"--" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Referencia Cliente</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.reference_client|default:"--" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Cliente</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.client.company|default:"--" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Asignado a</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.assigned_to.get_full_name|default:shipment.assigned_to.email }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Tipo</dt>
+                    <dd class="mt-1">
+                        {% if shipment.type == 'IMP' %}
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">IMPORTACIÓN</span>
+                        {% else %}
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">EXPORTACIÓN</span>
+                        {% endif %}
+                    </dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Fecha de Llegada</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.arrival_date|date:"d/m/Y"|default:"--" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Mercancía</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.merchandise|default:"--" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Transporte</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.transport|default:"--" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Régimen</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.regimen|default:"--" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Terminal</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.terminal.name|default:"--" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Línea</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.line.name|default:"--" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Buque</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.vessel|default:"--" }}</dd>
+                </div>
+                {% if shipment.notes %}
+                <div class="md:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">Notas</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ shipment.notes }}</dd>
+                </div>
+                {% endif %}
+            </dl>
+        </div>
+
+        <!-- Metadatos -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Metadatos</h3>
+                <dl class="space-y-3">
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Creado</dt>
+                        <dd class="mt-1 text-sm text-gray-900">{{ shipment.created_at|date:"d/m/Y H:i" }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Actualizado</dt>
+                        <dd class="mt-1 text-sm text-gray-900">{{ shipment.updated_at|date:"d/m/Y H:i" }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">CR Verificado</dt>
+                        <dd class="mt-1">
+                            {% if shipment.cr_checked %}
+                            <span class="text-green-600">✓ Sí</span>
+                            {% else %}
+                            <span class="text-gray-400">✗ No</span>
+                            {% endif %}
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+
+            {% if shipment.container_set.exists %}
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Contenedores</h3>
+                <ul class="space-y-2">
+                    {% for container in shipment.container_set.all %}
+                    <li class="text-sm">
+                        <span class="font-medium">{{ container.number }}</span> - <span class="text-gray-600">{{ container.size }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Timeline de Progreso -->
+    {% if timeline_steps %}
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-semibold text-gray-900">Progreso del Embarque</h3>
+            <div class="flex items-center space-x-2">
+                <span class="text-sm text-gray-500">{{ completed_steps }}/{{ total_steps }} pasos</span>
+                <span class="text-sm font-semibold text-indigo-600">{{ progress_percent }}%</span>
+            </div>
+        </div>
+
+        <!-- Barra de progreso -->
+        <div class="w-full bg-gray-200 rounded-full h-3 mb-6">
+            <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-3 rounded-full transition-all duration-500" style="width: {{ progress_percent }}%"></div>
+        </div>
+
+        <!-- Timeline Visual -->
+        <div class="relative">
+            <div class="space-y-4">
+                {% for item in timeline_steps %}
+                <div class="flex items-start group">
+                    <!-- Indicador de paso -->
+                    <div class="flex-shrink-0 relative">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold
+                            {% if item.status == 'COMPLETED' %}
+                                bg-green-500 text-white
+                            {% elif item.status == 'IN_PROGRESS' %}
+                                bg-blue-500 text-white ring-4 ring-blue-200
+                            {% elif item.status == 'PENDING' %}
+                                bg-yellow-400 text-yellow-900
+                            {% else %}
+                                bg-gray-200 text-gray-500
+                            {% endif %}">
+                            {% if item.status == 'COMPLETED' %}
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            {% else %}
+                                {{ item.step.number }}
+                            {% endif %}
+                        </div>
+                        <!-- Linea conectora -->
+                        {% if not forloop.last %}
+                        <div class="absolute top-10 left-5 w-0.5 h-full -ml-px
+                            {% if item.status == 'COMPLETED' %}bg-green-300{% else %}bg-gray-200{% endif %}"></div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Contenido del paso -->
+                    <div class="ml-4 flex-1 pb-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900">
+                                    {{ item.step.description|truncatewords:10 }}
+                                </h4>
+                                <p class="text-xs text-gray-500 mt-0.5">
+                                    Paso {{ item.step.number }}
+                                    {% if item.step.etapa %} - Etapa {{ item.step.etapa }}{% endif %}
+                                </p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                {% if item.has_tracking %}
+                                    <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full
+                                        {% if item.status == 'COMPLETED' %}bg-green-100 text-green-800
+                                        {% elif item.status == 'IN_PROGRESS' %}bg-blue-100 text-blue-800
+                                        {% elif item.status == 'PENDING' %}bg-yellow-100 text-yellow-800
+                                        {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                        {% if item.status == 'COMPLETED' %}Completado
+                                        {% elif item.status == 'IN_PROGRESS' %}En Progreso
+                                        {% elif item.status == 'PENDING' %}Pendiente
+                                        {% else %}{{ item.status }}{% endif %}
+                                    </span>
+                                    {% if item.tracking.finish_date %}
+                                    <span class="text-xs text-gray-400">{{ item.tracking.finish_date|date:"d/m/Y" }}</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-500">
+                                        Sin iniciar
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if item.has_tracking and item.tracking.assigned_to %}
+                        <p class="text-xs text-gray-400 mt-1">
+                            Asignado a: {{ item.tracking.assigned_to }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Sección de Revisiones con Pestañas -->
+    {% if timeline_steps %}
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">Revisiones</h3>
+            <div class="flex gap-2">
+                <button type="button" id="tab-view-pasos" class="px-3 py-1 text-sm font-medium rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 tab-view-btn active">
+                    Pasos
+                </button>
+                <button type="button" id="tab-view-resumen" class="px-3 py-1 text-sm font-medium rounded-lg text-gray-500 hover:bg-gray-100 tab-view-btn">
+                    Resumen
+                </button>
+            </div>
+        </div>
+
+        <!-- Vista de Pasos -->
+        <div id="view-pasos" class="tab-view">
+            <!-- Pestañas de pasos -->
+            <div class="border-b border-gray-200 mb-4">
+                <nav class="flex flex-wrap gap-1" aria-label="Pasos">
+                    {% for item in timeline_steps %}
+                    <button type="button"
+                            class="step-tab px-3 py-2 text-sm font-medium rounded-t-lg transition-colors
+                                {% if forloop.first %}active bg-white border border-b-0 border-gray-200 text-blue-600{% else %}text-gray-500 hover:text-gray-700 hover:bg-gray-50{% endif %}
+                                {% if item.status == 'COMPLETED' %}border-l-2 border-l-green-500
+                                {% elif item.status == 'IN_PROGRESS' %}border-l-2 border-l-blue-500
+                                {% elif item.status == 'PENDING' %}border-l-2 border-l-yellow-500
+                                {% else %}border-l-2 border-l-gray-300{% endif %}"
+                            data-step="{{ item.step.number }}"
+                            title="{{ item.step.description }}">
+                        <span class="flex items-center gap-1">
+                            {{ item.step.number }}
+                            {% if item.revisions_count > 0 %}
+                            <span class="inline-flex items-center justify-center w-5 h-5 text-xs font-bold rounded-full
+                                {% if item.status == 'COMPLETED' %}bg-green-100 text-green-800
+                                {% elif item.status == 'IN_PROGRESS' %}bg-blue-100 text-blue-800
+                                {% else %}bg-gray-100 text-gray-600{% endif %}">
+                                {{ item.revisions_count }}
+                            </span>
+                            {% endif %}
+                        </span>
+                    </button>
+                    {% endfor %}
+                </nav>
+            </div>
+
+            <!-- Contenido de cada paso -->
+            {% for item in timeline_steps %}
+            <div class="step-panel {% if not forloop.first %}hidden{% endif %}" data-step="{{ item.step.number }}">
+                <!-- Encabezado del paso -->
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-900">
+                                Paso {{ item.step.number }}: {{ item.step.description }}
+                            </h4>
+                            {% if item.step.etapa %}
+                            <p class="text-sm text-gray-500">Etapa {{ item.step.etapa }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="inline-flex px-3 py-1 text-sm font-medium rounded-full
+                                {% if item.status == 'COMPLETED' %}bg-green-100 text-green-800
+                                {% elif item.status == 'IN_PROGRESS' %}bg-blue-100 text-blue-800
+                                {% elif item.status == 'PENDING' %}bg-yellow-100 text-yellow-800
+                                {% else %}bg-gray-100 text-gray-500{% endif %}">
+                                {% if item.status == 'COMPLETED' %}Completado
+                                {% elif item.status == 'IN_PROGRESS' %}En Progreso
+                                {% elif item.status == 'PENDING' %}Pendiente
+                                {% else %}Sin iniciar{% endif %}
+                            </span>
+                            {% if item.has_tracking %}
+                            <a href="{% url 'tracking-detail' item.tracking.pk %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                                Ver tracking
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if item.revisions %}
+                <!-- Lista de revisiones del paso -->
+                <div class="space-y-4">
+                    {% for revision in item.revisions %}
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+                            <div>
+                                <span class="text-xs font-medium text-gray-500 uppercase">Ejecutivo</span>
+                                <p class="text-sm text-gray-900">{{ revision.assigned_to.get_full_name|default:revision.assigned_to.email }}</p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-medium text-gray-500 uppercase">Fecha de Registro</span>
+                                <p class="text-sm text-gray-900">{{ revision.created_at|date:"j \d\e F \d\e Y H:i" }}</p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-medium text-gray-500 uppercase">Última Modificación</span>
+                                <p class="text-sm text-gray-900">{{ revision.updated_at|date:"j \d\e F \d\e Y H:i" }}</p>
+                            </div>
+                        </div>
+
+                        {% if revision.notes %}
+                        <div class="mb-3">
+                            <span class="text-xs font-medium text-gray-500 uppercase">Notas</span>
+                            <p class="text-sm text-gray-900 mt-1 whitespace-pre-wrap">{{ revision.notes }}</p>
+                        </div>
+                        {% endif %}
+
+                        {% if revision.files %}
+                        <div class="mt-4 pt-4 border-t border-gray-100">
+                            <span class="text-xs font-medium text-gray-500 uppercase mb-2 block">Archivos Adjuntos</span>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Archivo</th>
+                                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Comentarios</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        {% for file in revision.files %}
+                                        <tr>
+                                            <td class="px-3 py-2 text-sm">
+                                                <a href="{{ file.url|default:'#' }}" target="_blank" class="text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                                    </svg>
+                                                    {{ file.name|default:"Archivo" }}
+                                                </a>
+                                            </td>
+                                            <td class="px-3 py-2 text-sm text-gray-600">{{ file.comments|default:"--" }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-8 text-gray-500">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <p class="mt-2">No hay revisiones para este paso</p>
+                    {% if item.has_tracking %}
+                    <a href="{% url 'revision-create' %}?tracking={{ item.tracking.pk }}" class="inline-flex items-center mt-2 text-blue-600 hover:text-blue-800 text-sm">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Agregar revisión
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Vista de Resumen -->
+        <div id="view-resumen" class="tab-view hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Paso</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Descripción</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Revisiones</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Última Actualización</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        {% for item in timeline_steps %}
+                        <tr class="hover:bg-gray-50 cursor-pointer" onclick="selectStep({{ item.step.number }})">
+                            <td class="px-4 py-3 text-sm font-medium text-gray-900">{{ item.step.number }}</td>
+                            <td class="px-4 py-3 text-sm text-gray-900">{{ item.step.description|truncatewords:8 }}</td>
+                            <td class="px-4 py-3">
+                                <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full
+                                    {% if item.status == 'COMPLETED' %}bg-green-100 text-green-800
+                                    {% elif item.status == 'IN_PROGRESS' %}bg-blue-100 text-blue-800
+                                    {% elif item.status == 'PENDING' %}bg-yellow-100 text-yellow-800
+                                    {% else %}bg-gray-100 text-gray-500{% endif %}">
+                                    {% if item.status == 'COMPLETED' %}Completado
+                                    {% elif item.status == 'IN_PROGRESS' %}En Progreso
+                                    {% elif item.status == 'PENDING' %}Pendiente
+                                    {% else %}Sin iniciar{% endif %}
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 text-sm text-gray-900">{{ item.revisions_count }}</td>
+                            <td class="px-4 py-3 text-sm text-gray-500">
+                                {% if item.revisions %}
+                                    {{ item.revisions.0.updated_at|date:"d/m/Y H:i" }}
+                                {% else %}
+                                    --
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Navegación entre pestañas de pasos
+    const stepTabs = document.querySelectorAll('.step-tab');
+    const stepPanels = document.querySelectorAll('.step-panel');
+
+    stepTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const stepNum = this.dataset.step;
+
+            // Actualizar pestañas
+            stepTabs.forEach(t => {
+                t.classList.remove('active', 'bg-white', 'border', 'border-b-0', 'border-gray-200', 'text-blue-600');
+                t.classList.add('text-gray-500');
+            });
+            this.classList.add('active', 'bg-white', 'border', 'border-b-0', 'border-gray-200', 'text-blue-600');
+            this.classList.remove('text-gray-500');
+
+            // Mostrar panel correspondiente
+            stepPanels.forEach(panel => {
+                if (panel.dataset.step === stepNum) {
+                    panel.classList.remove('hidden');
+                } else {
+                    panel.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    // Navegación entre vistas (Pasos/Resumen)
+    const viewBtns = document.querySelectorAll('.tab-view-btn');
+    const views = document.querySelectorAll('.tab-view');
+
+    viewBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const viewId = this.id.replace('tab-', '');
+
+            // Actualizar botones
+            viewBtns.forEach(b => {
+                b.classList.remove('active', 'bg-gray-100', 'text-gray-700');
+                b.classList.add('text-gray-500');
+            });
+            this.classList.add('active', 'bg-gray-100', 'text-gray-700');
+            this.classList.remove('text-gray-500');
+
+            // Mostrar vista correspondiente
+            views.forEach(view => {
+                if (view.id === viewId) {
+                    view.classList.remove('hidden');
+                } else {
+                    view.classList.add('hidden');
+                }
+            });
+        });
+    });
+});
+
+// Función para seleccionar paso desde la tabla de resumen
+function selectStep(stepNum) {
+    // Cambiar a vista de pasos
+    document.getElementById('tab-view-pasos').click();
+
+    // Seleccionar la pestaña del paso
+    const stepTab = document.querySelector(`.step-tab[data-step="${stepNum}"]`);
+    if (stepTab) {
+        stepTab.click();
+    }
+}
+</script>
+{% endblock %}

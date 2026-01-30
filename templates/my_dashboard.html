@@ -1,0 +1,402 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi Dashboard - Sistema de Seguimiento{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Mi Dashboard</h1>
+            <p class="text-gray-500">Bienvenido, {{ user.first_name|default:user.username }}</p>
+        </div>
+        <div class="text-sm text-gray-500">
+            {{ now|date:"d/m/Y H:i" }}
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Mis Embarques -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">Mis Embarques</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ my_shipments_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pendientes -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">Pasos Pendientes</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ stats.trackings_pending }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- En Progreso -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">En Progreso</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ stats.trackings_in_progress }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Completados Hoy -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-green-100 text-green-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">Completados Hoy</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ stats.completed_today }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Pasos Pendientes para Comentar -->
+        <div class="bg-white rounded-lg shadow-md">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Mis Pasos Pendientes</h2>
+                <p class="text-sm text-gray-500">Haz clic en "Comentar" para agregar una nota</p>
+            </div>
+            <div class="divide-y divide-gray-200 max-h-96 overflow-y-auto">
+                {% for tracking in trackings_to_comment %}
+                <div class="px-6 py-4 hover:bg-gray-50">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center space-x-2">
+                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 font-bold text-sm">
+                                    {{ tracking.step }}
+                                </span>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900 truncate">
+                                        {% if tracking.step_info %}
+                                            {{ tracking.step_info.description }}
+                                        {% else %}
+                                            Paso {{ tracking.step }}
+                                        {% endif %}
+                                    </p>
+                                    <p class="text-xs text-gray-500">
+                                        {{ tracking.shipment.reference }} - {{ tracking.shipment.client.company|truncatechars:25 }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full
+                                {% if tracking.status == 'PENDING' %}bg-yellow-100 text-yellow-800
+                                {% elif tracking.status == 'IN_PROGRESS' %}bg-blue-100 text-blue-800
+                                {% endif %}">
+                                {% if tracking.status == 'PENDING' %}Pendiente{% elif tracking.status == 'IN_PROGRESS' %}En Progreso{% endif %}
+                            </span>
+                            <button
+                                onclick="openQuickComment({{ tracking.id }}, '{{ tracking.shipment.reference|escapejs }}', {{ tracking.step }})"
+                                class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                </svg>
+                                Comentar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="px-6 py-12 text-center">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <p class="mt-2 text-sm text-gray-500">No tienes pasos pendientes</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Mis Embarques Recientes -->
+        <div class="bg-white rounded-lg shadow-md">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Mis Embarques</h2>
+            </div>
+            <div class="divide-y divide-gray-200 max-h-96 overflow-y-auto">
+                {% for shipment in my_shipments %}
+                <a href="{% url 'shipment-detail' shipment.id %}" class="block px-6 py-4 hover:bg-gray-50">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-900 truncate">
+                                {{ shipment.reference }}
+                            </p>
+                            <p class="text-xs text-gray-500">
+                                {{ shipment.client.company|truncatechars:30 }}
+                            </p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full
+                                {% if shipment.type == 'IMP' %}bg-green-100 text-green-800
+                                {% else %}bg-purple-100 text-purple-800{% endif %}">
+                                {{ shipment.type }}
+                            </span>
+                            <span class="text-xs text-gray-500">
+                                {{ shipment.arrival_date|date:"d/m/Y" }}
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="px-6 py-12 text-center">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    </svg>
+                    <p class="mt-2 text-sm text-gray-500">No tienes embarques asignados</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% if my_shipments_count > 10 %}
+            <div class="px-6 py-3 bg-gray-50 border-t border-gray-200">
+                <a href="{% url 'shipment-list' %}?assigned_to={{ user.id }}" class="text-sm text-indigo-600 hover:text-indigo-800">
+                    Ver todos mis embarques ({{ my_shipments_count }})
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Revisiones Recientes -->
+    <div class="bg-white rounded-lg shadow-md">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-900">Mis Comentarios Recientes</h2>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paso</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Embarque</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notas</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for revision in my_revisions %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-700 font-bold text-sm">
+                                {{ revision.step }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <a href="{% url 'shipment-detail' revision.tracking.shipment.id %}" class="text-indigo-600 hover:text-indigo-800">
+                                {{ revision.tracking.shipment.reference }}
+                            </a>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ revision.tracking.shipment.client.company|truncatechars:25 }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
+                            {{ revision.notes|truncatechars:50 }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ revision.created_at|date:"d/m/Y H:i" }}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="px-6 py-12 text-center text-gray-500">
+                            No tienes comentarios recientes
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Comentario Rapido -->
+<div id="quickCommentModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+        <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" onclick="closeQuickComment()"></div>
+
+        <div class="relative z-10 w-full max-w-lg p-6 mx-auto bg-white rounded-lg shadow-xl">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    Agregar Comentario
+                </h3>
+                <button onclick="closeQuickComment()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="modalInfo" class="mb-4 p-3 bg-gray-50 rounded-lg">
+                <p class="text-sm text-gray-600">
+                    <span class="font-medium">Embarque:</span> <span id="modalShipmentRef"></span>
+                </p>
+                <p class="text-sm text-gray-600">
+                    <span class="font-medium">Paso:</span> <span id="modalStepNumber"></span>
+                </p>
+            </div>
+
+            <form id="quickCommentForm" onsubmit="submitQuickComment(event)">
+                <input type="hidden" id="trackingId" name="tracking_id">
+
+                <div class="mb-4">
+                    <label for="commentNotes" class="block text-sm font-medium text-gray-700 mb-1">
+                        Comentario
+                    </label>
+                    <textarea
+                        id="commentNotes"
+                        name="notes"
+                        rows="4"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="Escribe tu comentario aqui..."
+                        required></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label for="commentStatus" class="block text-sm font-medium text-gray-700 mb-1">
+                        Cambiar estatus (opcional)
+                    </label>
+                    <select
+                        id="commentStatus"
+                        name="status"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="">-- Sin cambio --</option>
+                        <option value="IN_PROGRESS">En Progreso</option>
+                        <option value="COMPLETED">Completado</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button
+                        type="button"
+                        onclick="closeQuickComment()"
+                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200">
+                        Cancelar
+                    </button>
+                    <button
+                        type="submit"
+                        id="submitBtn"
+                        class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
+                        Guardar Comentario
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Toast de notificacion -->
+<div id="toast" class="fixed bottom-4 right-4 z-50 hidden">
+    <div class="px-4 py-3 rounded-lg shadow-lg" id="toastContent">
+        <p id="toastMessage" class="text-sm font-medium"></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function openQuickComment(trackingId, shipmentRef, stepNumber) {
+    document.getElementById('trackingId').value = trackingId;
+    document.getElementById('modalShipmentRef').textContent = shipmentRef;
+    document.getElementById('modalStepNumber').textContent = stepNumber;
+    document.getElementById('commentNotes').value = '';
+    document.getElementById('commentStatus').value = '';
+    document.getElementById('quickCommentModal').classList.remove('hidden');
+}
+
+function closeQuickComment() {
+    document.getElementById('quickCommentModal').classList.add('hidden');
+}
+
+async function submitQuickComment(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Guardando...';
+
+    const formData = new FormData(document.getElementById('quickCommentForm'));
+
+    try {
+        const response = await fetch('{% url "revision-quick-add" %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            showToast('Comentario guardado correctamente', 'success');
+            closeQuickComment();
+            // Recargar la pagina para ver los cambios
+            setTimeout(() => window.location.reload(), 1000);
+        } else {
+            showToast(data.error || 'Error al guardar el comentario', 'error');
+        }
+    } catch (error) {
+        showToast('Error de conexion', 'error');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Guardar Comentario';
+    }
+}
+
+function showToast(message, type) {
+    const toast = document.getElementById('toast');
+    const toastContent = document.getElementById('toastContent');
+    const toastMessage = document.getElementById('toastMessage');
+
+    toastMessage.textContent = message;
+
+    if (type === 'success') {
+        toastContent.className = 'px-4 py-3 rounded-lg shadow-lg bg-green-500 text-white';
+    } else {
+        toastContent.className = 'px-4 py-3 rounded-lg shadow-lg bg-red-500 text-white';
+    }
+
+    toast.classList.remove('hidden');
+
+    setTimeout(() => {
+        toast.classList.add('hidden');
+    }, 3000);
+}
+
+// Cerrar modal con Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeQuickComment();
+    }
+});
+</script>
+{% endblock %}

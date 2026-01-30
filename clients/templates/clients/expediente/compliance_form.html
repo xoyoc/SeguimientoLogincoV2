@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - {{ client.company }}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="mb-6">
+        <a href="{% url 'client-expediente' client.pk %}" class="text-indigo-600 hover:text-indigo-800 text-sm">&larr; Volver al expediente</a>
+        <h1 class="text-2xl font-bold text-gray-900 mt-2">{{ title }}</h1>
+        <p class="text-gray-600">{{ client.company }}</p>
+    </div>
+
+    <form method="post" class="bg-white rounded-lg shadow-md p-6 space-y-6">
+        {% csrf_token %}
+
+        <!-- Datos Complementarios -->
+        <div>
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Datos Complementarios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ form.razon_social.label }}</label>
+                    {{ form.razon_social }}
+                    {% if form.razon_social.errors %}<p class="mt-1 text-sm text-red-600">{{ form.razon_social.errors.0 }}</p>{% endif %}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ form.regimen_fiscal.label }}</label>
+                    {{ form.regimen_fiscal }}
+                    {% if form.regimen_fiscal.errors %}<p class="mt-1 text-sm text-red-600">{{ form.regimen_fiscal.errors.0 }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Representante Legal -->
+        <div>
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Representante Legal</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="md:col-span-3">
+                    <label class="block text-sm font-medium text-gray-700">{{ form.representante_legal_nombre.label }}</label>
+                    {{ form.representante_legal_nombre }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ form.representante_legal_rfc.label }}</label>
+                    {{ form.representante_legal_rfc }}
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">{{ form.representante_legal_curp.label }}</label>
+                    {{ form.representante_legal_curp }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Domicilio de Operaciones -->
+        <div>
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Domicilio de Operaciones</h2>
+            <p class="text-sm text-gray-500 mb-4">Complete solo si difiere del domicilio fiscal</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">Calle</label>
+                    {{ form.domicilio_operaciones_calle }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">No. Ext</label>
+                    {{ form.domicilio_operaciones_numero_ext }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">No. Int</label>
+                    {{ form.domicilio_operaciones_numero_int }}
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">Colonia</label>
+                    {{ form.domicilio_operaciones_colonia }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">C.P.</label>
+                    {{ form.domicilio_operaciones_cp }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Ciudad</label>
+                    {{ form.domicilio_operaciones_ciudad }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Estado</label>
+                    {{ form.domicilio_operaciones_estado }}
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-4 border-t">
+            <a href="{% url 'client-expediente' client.pk %}" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                Cancelar
+            </a>
+            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                Guardar Cambios
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

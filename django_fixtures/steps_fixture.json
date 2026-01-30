@@ -1,0 +1,226 @@
+[
+  {
+    "model": "steps.step",
+    "pk": 1,
+    "fields": {
+      "number": 1,
+      "description": "Recepción de documentos",
+      "etapa": 1,
+      "department_id": null,
+      "directory": "Recepción Documentos",
+      "imp": true,
+      "exp": true,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 2,
+    "fields": {
+      "number": 2,
+      "description": "Clasificación",
+      "etapa": 1,
+      "department_id": null,
+      "directory": "Clasificación",
+      "imp": true,
+      "exp": true,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 3,
+    "fields": {
+      "number": 3,
+      "description": "Aviso Automatico",
+      "etapa": 1,
+      "department_id": null,
+      "directory": "",
+      "imp": true,
+      "exp": false,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 4,
+    "fields": {
+      "number": 4,
+      "description": "Captura de Pedimento",
+      "etapa": 1,
+      "department_id": null,
+      "directory": "Captura de Pedimento",
+      "imp": true,
+      "exp": true,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 5,
+    "fields": {
+      "number": 5,
+      "description": "Pre-Validacion B/L",
+      "etapa": 1,
+      "department_id": null,
+      "directory": "Pre-Validacion B/L",
+      "imp": true,
+      "exp": false,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 6,
+    "fields": {
+      "number": 6,
+      "description": "Previo/Cambio Candado/Pesaje",
+      "etapa": 1,
+      "department_id": null,
+      "directory": "Previo/Cambio Candado/Pesaje",
+      "imp": true,
+      "exp": false,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 7,
+    "fields": {
+      "number": 7,
+      "description": "Cotización",
+      "etapa": 1,
+      "department_id": null,
+      "directory": "Cotización",
+      "imp": true,
+      "exp": true,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 8,
+    "fields": {
+      "number": 8,
+      "description": "Confirmación Anticipo",
+      "etapa": 1,
+      "department_id": null,
+      "directory": "Confirmación Anticipo",
+      "imp": true,
+      "exp": true,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 9,
+    "fields": {
+      "number": 9,
+      "description": "Validación/Pago Pedimento",
+      "etapa": 1,
+      "department_id": null,
+      "directory": "Validación/Pago Pedimento",
+      "imp": true,
+      "exp": true,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 10,
+    "fields": {
+      "number": 10,
+      "description": "Modulación Pedimento",
+      "etapa": 2,
+      "department_id": null,
+      "directory": "Modulación Pedimento",
+      "imp": true,
+      "exp": true,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 11,
+    "fields": {
+      "number": 11,
+      "description": "Reconocimiento Aduanal",
+      "etapa": 2,
+      "department_id": null,
+      "directory": "Reconocimiento Aduanal",
+      "imp": true,
+      "exp": false,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 12,
+    "fields": {
+      "number": 12,
+      "description": "Retorno de Vacío / Zarpe de buque",
+      "etapa": 3,
+      "department_id": null,
+      "directory": "Retorno de Vacío",
+      "imp": true,
+      "exp": true,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 13,
+    "fields": {
+      "number": 13,
+      "description": "Recuperacion de Facturas",
+      "etapa": 3,
+      "department_id": null,
+      "directory": "Recuperacion de Facturas",
+      "imp": true,
+      "exp": true,
+      "button": false,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  },
+  {
+    "model": "steps.step",
+    "pk": 14,
+    "fields": {
+      "number": 14,
+      "description": "Comprobante de Pago/Devolucion",
+      "etapa": 3,
+      "department_id": null,
+      "directory": "Comprobante de Pago/Devolucion",
+      "imp": true,
+      "exp": true,
+      "button": true,
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00"
+    }
+  }
+]

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle Revisión{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-md rounded-lg p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Detalle de la Revisión</h1>
+        <div class="space-x-2">
+            <a href="{% url 'revision-edit' revision.id %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">Editar</a>
+            <a href="{% url 'revision-list' %}" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md">Volver</a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700">Información de la Revisión</h3>
+            <dl class="space-y-2">
+                <div><dt class="font-medium text-gray-600">Fecha:</dt><dd>{{ revision.date|date:"d/m/Y" }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Hora:</dt><dd>{{ revision.time|time:"H:i"|default:"N/A" }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Paso:</dt><dd>{{ revision.step }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Estado:</dt>
+                    <dd><span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">{{ revision.status }}</span></dd>
+                </div>
+                <div><dt class="font-medium text-gray-600">Cliente:</dt><dd>{{ revision.client|default:"N/A" }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Asignado a:</dt><dd>{{ revision.assigned_to.username }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Creado:</dt><dd>{{ revision.created_at|date:"d/m/Y H:i" }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Actualizado:</dt><dd>{{ revision.updated_at|date:"d/m/Y H:i" }}</dd></div>
+            </dl>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700">Seguimiento Relacionado</h3>
+            <dl class="space-y-2">
+                <div><dt class="font-medium text-gray-600">ID Seguimiento:</dt>
+                    <dd><a href="{% url 'tracking-detail' revision.tracking.id %}" class="text-blue-600 hover:underline">#{{ revision.tracking.id }}</a></dd>
+                </div>
+                <div><dt class="font-medium text-gray-600">Envío:</dt>
+                    <dd><a href="{% url 'shipment-detail' revision.tracking.shipment.id %}" class="text-blue-600 hover:underline">{{ revision.tracking.shipment.reference }}</a></dd>
+                </div>
+                <div><dt class="font-medium text-gray-600">Cliente del envío:</dt><dd>{{ revision.tracking.shipment.client.name }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Estado del seguimiento:</dt><dd>{{ revision.tracking.status }}</dd></div>
+            </dl>
+        </div>
+    </div>
+
+    {% if revision.notes %}
+    <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-3 text-gray-700">Notas</h3>
+        <div class="bg-gray-50 p-4 rounded-md">
+            <p class="text-gray-700 whitespace-pre-line">{{ revision.notes }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if revision.files %}
+    <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-3 text-gray-700">Archivos</h3>
+        <div class="bg-gray-50 p-4 rounded-md">
+            <pre class="text-sm text-gray-700 overflow-auto">{{ revision.files }}</pre>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if revision.documents %}
+    <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-3 text-gray-700">Documentos</h3>
+        <div class="bg-gray-50 p-4 rounded-md">
+            <pre class="text-sm text-gray-700 overflow-auto">{{ revision.documents }}</pre>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

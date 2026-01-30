@@ -1,0 +1,937 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "email": "prueba@softwareland.mx",
+      "password": "$2a$10$Mr34ZpC/J0eXGaNpbi8fIOdPtW7VK9VQc6yYzsC0kyGx41HHRWVP.",
+      "first_name": "Prueba ",
+      "last_name": "Softwareland",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "prueba.softwareland"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "email": "prueba@loginco.mx",
+      "password": "$2a$10$7WJfSp1qX4rQHVsvRTkMIutxBsMJn3c7jVWZrEhDLTCnEr.Mxw7JW",
+      "first_name": "Loginco",
+      "last_name": "sistema",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "loginco.sistema"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "email": "kimbykiss@gmail.com",
+      "password": "$2a$10$cSK4xBMLhMAtcyPuRPa9Iu3JPttMrA65F0slf3ej/zfJ.kFe2LRB6",
+      "first_name": "Prueba ",
+      "last_name": "cliente",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "prueba.cliente"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+      "email": "zuly.becerra@loginco.com.mx",
+      "password": "$2a$10$Fu8dfuhA7HzZCjxczJQLoucrLH.NQVPZ/8.sXSjzsE9jt0rRuV3sq",
+      "first_name": "Zuly",
+      "last_name": "Becerra",
+      "phone": "753 5377838 ext116",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "zuly.becerra"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 5,
+    "fields": {
+      "email": "guadalupe.contreras@loginco.com.mx",
+      "password": "$2a$10$Yj2a22HfINApHwQhRBJIUOcCMSX2GeX6Pdf0iqKX6IlNcB620T9fG",
+      "first_name": "Lupita",
+      "last_name": "Contreras",
+      "phone": "753 5377838 ext107",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "lupita.contreras"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 6,
+    "fields": {
+      "email": "sujey.zamora@loginco.com.mx",
+      "password": "$2a$10$5SwHNEMA9OTqFqNNMjO3EO6nqdiOn1Mn0dROVoj4BXkiNARAh.Hj.",
+      "first_name": "Sujey",
+      "last_name": "Zamora",
+      "phone": "753 5377838 ext101",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "sujey.zamora"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 7,
+    "fields": {
+      "email": "nivey.medrano@loginco.com.mx",
+      "password": "$2a$10$su5UzPvlav74cn3f.FFW6uxGqV7qlmlY2zwn3f3EwvA9rz8PEX0ym",
+      "first_name": "Nivey",
+      "last_name": "Medrano",
+      "phone": "753 5377838 ext115",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "nivey.medrano"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 8,
+    "fields": {
+      "email": "yanin.ortiz@loginco.com.mx",
+      "password": "$2a$10$erBa5QWbcKK0FSXUaW2JBulCFqnHoQ583vZujXJtW4GNhJgTd96HS",
+      "first_name": "Yanin",
+      "last_name": "Ortiz",
+      "phone": "753 5377838 ext115",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "yanin.ortiz"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 9,
+    "fields": {
+      "email": "odaly.espinosa@loginco.com.mx",
+      "password": "$2a$10$VtSB6mesEw13M9EuN3q07.CKWCbXjdshmngSMg8TtcUW4nUuM1wci",
+      "first_name": "Odaly",
+      "last_name": "Espinosa",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "odaly.espinosa"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 10,
+    "fields": {
+      "email": "f.suarez@loginco.com.mx",
+      "password": "$2a$10$Sk1yzdjnsyuB31GNMGK1IuON66LCPfG//kQaeNV0t0m5dJ5x4AvUW",
+      "first_name": "Francisco",
+      "last_name": "Suarez",
+      "phone": "753 5377838",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "francisco.suarez"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 11,
+    "fields": {
+      "email": "yuriev.perez@loginco.com.mx",
+      "password": "$2a$10$sR3ZuicFDNx./esmZP0uZuDx2XXD00LPiMQz9hY8LT8o1BeF9m0b6",
+      "first_name": "Adonis",
+      "last_name": "Maravilla",
+      "phone": "753 5377838 ext111",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "adonis.maravilla"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 12,
+    "fields": {
+      "email": "isaac.torres@loginco.com.mx",
+      "password": "$2a$10$d9d1b6FppCjj/D1Xm28NnuU3Oxu/EzdaQ5yPD4uRbxvRy1JArYzI.",
+      "first_name": "Isaac",
+      "last_name": "Torres",
+      "phone": "753 5377838 ext106",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "isaac.torres"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 13,
+    "fields": {
+      "email": "dulce.rafaela@loginco.com.mx",
+      "password": "$2a$10$pC5DJQZYdKtkBSvUgEtwL.tldxNwn3nKDkxT1k1dQg1cciF4Q2v/2",
+      "first_name": "Dulce",
+      "last_name": "Rafaela",
+      "phone": "753 5377838 ext110",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "dulce.rafaela"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 14,
+    "fields": {
+      "email": "gscontreras92@gmail.com",
+      "password": "$2a$10$.s.KncuXAsRNUnIxUHhPQOT4rGuScdss3v3BDeQQIYkifwta.oGQS",
+      "first_name": "MOY ",
+      "last_name": "ENTEBI",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "moy.entebi"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 15,
+    "fields": {
+      "email": "armando.jurado@loginco.com.mx",
+      "password": "$2a$10$6AZNxqB0H3PZzEY.zTvH5ehs4aW5FTwdZGJKNE8KmZlzTBIEvY/.e",
+      "first_name": "Armando Saul",
+      "last_name": "Jurado",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "armandosaul.jurado"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 16,
+    "fields": {
+      "email": "maria.sanchez@loginco.com.mx",
+      "password": "$2a$10$FZBUNJcx8FvJR4SL4Dm1NOjZWmzKWQhKCnx6Q.6rotlpghr119bwm",
+      "first_name": "Maria",
+      "last_name": "Sanchez",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "maria.sanchez"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 17,
+    "fields": {
+      "email": "contrerasgpe92@gmail.com",
+      "password": "$2a$10$KIA/IPyyj93mtosMfPJsc.mWZvVO9u6ZcUwdRZmH0Jh9vJJvpRAz2",
+      "first_name": "KAMAJI",
+      "last_name": "KAMAJI",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "kamaji.kamaji"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 18,
+    "fields": {
+      "email": "maricel.jiron@loginco.com.mx",
+      "password": "$2a$10$hvZPUf9.28XBZAQh1esdwOazOb4AuAQrLirnZLisV1t/7j1JOYxOK",
+      "first_name": "Maricel ",
+      "last_name": "Jiron",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "maricel.jiron"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 19,
+    "fields": {
+      "email": "gerardo.jurado@loginco.com.mx",
+      "password": "$2a$10$aSoSSx9DZur0MkJNdOJu1OMrin6L5vIaSCNjbuCwWCv6tXFXdxanW",
+      "first_name": "Gerardo",
+      "last_name": "Jurado",
+      "phone": "753 5377838 ext111",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "gerardo.jurado"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 20,
+    "fields": {
+      "email": "angelica.aguiar@loginco.com.mx",
+      "password": "$2a$10$i/v88qogUR7PaRNHG3Pae.CzX97xrTJEtUL4eBtTlsLRXxehhO4DS",
+      "first_name": "Angelica",
+      "last_name": "Aguiar",
+      "phone": "753 5377838",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "angelica.aguiar"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 21,
+    "fields": {
+      "email": "jyllescas@handelmexico.com.mx",
+      "password": "$2a$10$dLtJ2EEWmeTPLnJgQ6WEieGTX60ms75Z9KAB2.BtEfR1GdUPPlbUe",
+      "first_name": "Jorge ",
+      "last_name": "Yllescas Santamaría",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "jorge.yllescassantamaría"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 22,
+    "fields": {
+      "email": "ventas@cgtroya.com",
+      "password": "$2a$10$gETxlF6Cbnd.q4W2IWsqW.osNuBL7mPNNIszLSlrrScORP50Jiiy.",
+      "first_name": "Luis  ",
+      "last_name": "Fernandez ",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "luis.fernandez"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 23,
+    "fields": {
+      "email": "eov1972@hotmail.com",
+      "password": "$2a$10$is05SlPgwLStx9FOTBuzR.ICZdQdfS3LvmUPxaXwuTE6CqfrkdD9O",
+      "first_name": "Ernesto",
+      "last_name": "Osorno ",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "ernesto.osorno"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 24,
+    "fields": {
+      "email": "israel.ojeda@loginco.com.mx",
+      "password": "$2a$10$OPAe83gPfbRFpryElbrP3eZ8q22f8CaePVcpBzSevxILXwVswtA3i",
+      "first_name": "Israel ",
+      "last_name": "Ojeda",
+      "phone": "753 5377838 ext108",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "israel.ojeda"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 25,
+    "fields": {
+      "email": "marina.barbosa@loginco.com.mx",
+      "password": "$2a$10$89g0gYC5qtMjUDqkVMc7iehPlE3FGefYLrZCY491st2QD2n96leS6",
+      "first_name": "Marina",
+      "last_name": "Barbosa",
+      "phone": "753 5377838 ext119",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "marina.barbosa"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 26,
+    "fields": {
+      "email": "orlando@asceaconsultoria.com",
+      "password": "$2a$10$Y3kec5OSeA1YBm5V1pOTdOD.RiCQTjuysMqVM9TYd8VTiR3qV/RtW",
+      "first_name": "Orlando",
+      "last_name": "Valdez",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "orlando.valdez"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 27,
+    "fields": {
+      "email": "bareketmexico@gmail.com",
+      "password": "$2a$10$WKYqrkMArVRqtGDt4xh/bu5VtKLrCC55nDQef5S8FfZM1iA0nmbq.",
+      "first_name": "Marco",
+      "last_name": "Eskenazi",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "marco.eskenazi"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 28,
+    "fields": {
+      "email": "vianey@comintmev.com",
+      "password": "$2a$10$ax0JmqMj/zFu0W3dA6/R6.TfwJX0Cw2QyZMjOVAMPX5nb1eX2fxju",
+      "first_name": "Vianey",
+      "last_name": "Garcia Gonsalez",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "vianey.garciagonsalez"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 29,
+    "fields": {
+      "email": "carolina7631@hotmail.com",
+      "password": "$2a$10$QGJwIzA370knNgz3SesICuSicu6O8wawFd4N97vB0RMc2CCMQDk/2",
+      "first_name": "Carolina",
+      "last_name": "",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "carolina"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 30,
+    "fields": {
+      "email": "caduanal.cba@prodigy.net.mx",
+      "password": "$2a$10$R7NisrYs/DQdRuyHDOn4LuC9h6f5dpMLnILYaCNKV.93l1eLTrRfW",
+      "first_name": "GYM SPORT",
+      "last_name": "SPORT",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "gymsport.sport"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 31,
+    "fields": {
+      "email": "suerte2015@126.com",
+      "password": "$2a$10$ddA/fvwJQBetAsQMFxH0c.T9jrdHjJX8AAlyBMJBw6/WEq8a4VT5S",
+      "first_name": "JAIME",
+      "last_name": "MA",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "jaime.ma"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 32,
+    "fields": {
+      "email": "operaciones@pacificnortj.com",
+      "password": "$2a$10$F0L.CXt0zy98V6JACAZfVeJPSsaSnzMQwAkNEy0yTq3aoSNITjFkS",
+      "first_name": "JUAN JE",
+      "last_name": "PARRA",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "juanje.parra"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 33,
+    "fields": {
+      "email": "albertotrevis@hotmail.com",
+      "password": "$2a$10$cpiehxu3Wd4ehunahu5rOOFeZTExgRFSUm6pw2KMWNVUTiGdtplrS",
+      "first_name": "ALBERTO ",
+      "last_name": "TRAVIÑO",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "alberto.traviño"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 34,
+    "fields": {
+      "email": "ejecutivo@gmail.com",
+      "password": "$2a$10$jCAN77ZJ7QnHI/cicSzFNOYQWHlTNzFZ5oOQCZSrvtOKyOi6Ho7q.",
+      "first_name": "Ejecutivo de prueba",
+      "last_name": "Softwareland",
+      "phone": "3-45-43-45",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "ejecutivodeprueba.softwareland"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 35,
+    "fields": {
+      "email": "lucyvazquezm@gmail.com",
+      "password": "$2a$10$YWx1.MPIFJXhVpRIzsbewupYQvaGUjCirwg0j0AHYiYvzzONUe4pO",
+      "first_name": "Lucy",
+      "last_name": "Vazquez",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "lucy.vazquez"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 36,
+    "fields": {
+      "email": "admin@softwareland.mx",
+      "password": "$2a$10$LSeaGerKQa.RcuEtzb5M2egVKZBcnY.uOZgKBz0GYDn2gBdMDN35i",
+      "first_name": "Softwareland Admin",
+      "last_name": "Softwareland",
+      "phone": "3-45-43-45",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "softwarelandadmin.softwareland"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 37,
+    "fields": {
+      "email": "trafico1@consolsa.com",
+      "password": "$2a$10$1iXo4/XnSLfBaRrbrqv9uugIjvJTcI4A3zbxk/ShlNmj3.mXiWcxO",
+      "first_name": "LUIS FELIPE",
+      "last_name": "VAZQUEZ DIAS",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "luisfelipe.vazquezdias"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 38,
+    "fields": {
+      "email": "david.vazques@grimexsa.com",
+      "password": "$2a$10$2OyI.IwOtDGzcfVV1l5IK.hCHK8WnU6Qx0WZBmLhIPkF3k7SPJT4q",
+      "first_name": "David",
+      "last_name": "Vazquez",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "david.vazquez"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 39,
+    "fields": {
+      "email": "afisad.mexico@outlook.es",
+      "password": "$2a$10$XVFmUgjLucOEpKNQKi1/x.yv66clL0JFWPPITNcaQWE3OGMmQlhWO",
+      "first_name": "GRUPO",
+      "last_name": "AFISAD",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "grupo.afisad"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 40,
+    "fields": {
+      "email": "gustavorruiz@live.com.mx",
+      "password": "$2a$10$aUpdg3NlRgItef5n72glhOt52QDzun2In7WF2IfmCBNAn2uiTvAX2",
+      "first_name": "Gustavo ",
+      "last_name": "Ruiz",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "gustavo.ruiz"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 41,
+    "fields": {
+      "email": "benitoalberto23@hotmail.com",
+      "password": "$2a$10$JLVqBw5AdkLexYcVhGJIH.TrGK6h1qmN5Dr3WBLPzAU7kMAYX5Er2",
+      "first_name": "BENITO ",
+      "last_name": "ALBERTO",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "benito.alberto"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 42,
+    "fields": {
+      "email": "fsindustrial3@gmail.com",
+      "password": "$2a$10$gBob12CKkB0wBWgbjtoptOn.GtFn7fgQ8xfruhVe0Dq/eoJjrHIn.",
+      "first_name": "FS",
+      "last_name": "INDUSTRIAL",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "fs.industrial"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 43,
+    "fields": {
+      "email": "guerrero_z_d@hotmail.com",
+      "password": "$2a$10$y5Fc47m2an9Lmxp..S6PL.tg0fS5X/9JzjpK9spzVP4LLqkK27GbS",
+      "first_name": "David Guerrero",
+      "last_name": "fisher ",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "davidguerrero.fisher"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 44,
+    "fields": {
+      "email": "desarrollo@loginco.com.mx",
+      "password": "$2a$10$7YP0STPQ2wAj46a1ZFcvV.rXInOj0wA0CBLiMBWniplBDC7JhtHMi",
+      "first_name": "ADELA",
+      "last_name": "CASTRO",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "adela.castro"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 45,
+    "fields": {
+      "email": "araceli@sfcomics.mx",
+      "password": "$2a$10$JHVg8a3K/zJO8LgZxthiAOt4lwP6SHCwbp00AHSOUDaeZbiZajt/u",
+      "first_name": "SCI FI",
+      "last_name": "COMICS",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "scifi.comics"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 46,
+    "fields": {
+      "email": "auxiliar2@ibshunde.com",
+      "password": "$2a$10$YgwPwa0fcaF2cFU03tOKiuyUkRerbEh0Zdxn/WrpO.tR0pC1T9oPe",
+      "first_name": "IBS",
+      "last_name": "HUNDE MEXICO",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "ibs.hundemexico"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 47,
+    "fields": {
+      "email": "leopoldo.hernandez@leiru.com",
+      "password": "$2a$10$k5vms3rGTazHaSFyt1Bvv.TmDnT1ThZrtWSa45g6L7.EKq1/e6wfu",
+      "first_name": "Leopoldo",
+      "last_name": "Hernandez",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "leopoldo.hernandez"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 48,
+    "fields": {
+      "email": "j.gutierrez@grupojom.com.mx",
+      "password": "$2a$10$o9pfbEISTANv7DxhFZBMQuR0dsEx9jv4TnxGBu0s4vpcylJ2KVujm",
+      "first_name": "J",
+      "last_name": "GUTIERREZ",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "j.gutierrez"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 49,
+    "fields": {
+      "email": "moisestauachi@gmail.com",
+      "password": "$2a$10$lRWFzNO8YTvyTEesUAIV2elEKj2hck5kVs52m0e0K3WBS9HnI.GCe",
+      "first_name": "MOISES",
+      "last_name": "TUACHI",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "moises.tuachi"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 50,
+    "fields": {
+      "email": "moisestuachi@gmail.com",
+      "password": "$2a$10$huhjwnMmnQ0xv0p3Nms5uuXu271CLgtUq2xvUAjgcNYcsTPw1aojK",
+      "first_name": "MOISES",
+      "last_name": "TUACHI",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "moises.tuachi1"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 51,
+    "fields": {
+      "email": "jorge.yllescas@ibshunde.com",
+      "password": "$2a$10$2foS3xjmqaxiltulgztsQOJTZKXuNrc6Tpaa5YgDkLtX3AXZh.jCa",
+      "first_name": "JORGE",
+      "last_name": "YLLESCAS",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "jorge.yllescas"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 52,
+    "fields": {
+      "email": "zulyman@hotmail.com",
+      "password": "$2a$10$5Tvwrl6ERWCh7ta6WX/j..YPjgw7FnjK2irilCf/FwT.sQr2qqqMy",
+      "first_name": "prueba",
+      "last_name": "",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "prueba"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 53,
+    "fields": {
+      "email": "brenda.fernandez@loginco.com.mx",
+      "password": "$2a$10$eHxF2YPfec1etjTugwtGIOeG5GeU7t6TXdj19Ra1gGE.ONNeRjvYS",
+      "first_name": "Brenda",
+      "last_name": "Fernandez",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "brenda.fernandez"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 54,
+    "fields": {
+      "email": "auxiliar@loginco.com.mx",
+      "password": "$2a$10$/RDAazNW0TE7DLWRE68mVuML/xsGzM7sBHBpcwPyNmEna1lHwcbdO",
+      "first_name": "Auxiliar",
+      "last_name": "Practicantes",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "auxiliar.practicantes"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 55,
+    "fields": {
+      "email": "cheyla.borja@loginco.com.mx",
+      "password": "$2a$10$ziOOOXm/2MJigO7.kbEQSe4pBsFOWaStrSNhITXLRl7F5XdDML/Ze",
+      "first_name": "Cheyla ",
+      "last_name": "Borja",
+      "phone": "",
+      "company": "",
+      "notes": "",
+      "flex": "[]",
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "username": "cheyla.borja"
+    }
+  }
+]

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle Seguimiento{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-md rounded-lg p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Detalle del Seguimiento</h1>
+        <div class="space-x-2">
+            <a href="{% url 'tracking-edit' tracking.id %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">Editar</a>
+            <a href="{% url 'tracking-list' %}" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md">Volver</a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700">Información del Seguimiento</h3>
+            <dl class="space-y-2">
+                <div><dt class="font-medium text-gray-600">Paso:</dt><dd>{{ tracking.step }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Estado:</dt>
+                    <dd>
+                        {% if tracking.status == 'PENDING' %}
+                            <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Pendiente</span>
+                        {% elif tracking.status == 'IN_PROGRESS' %}
+                            <span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">En Progreso</span>
+                        {% elif tracking.status == 'COMPLETED' %}
+                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Completado</span>
+                        {% else %}
+                            <span class="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">{{ tracking.status }}</span>
+                        {% endif %}
+                    </dd>
+                </div>
+                <div><dt class="font-medium text-gray-600">Asignado a:</dt><dd>{{ tracking.assigned_to.username }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Fecha de fin:</dt><dd>{{ tracking.finish_date|date:"d/m/Y"|default:"N/A" }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Creado:</dt><dd>{{ tracking.created_at|date:"d/m/Y H:i" }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Actualizado:</dt><dd>{{ tracking.updated_at|date:"d/m/Y H:i" }}</dd></div>
+            </dl>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700">Envío Relacionado</h3>
+            <dl class="space-y-2">
+                <div><dt class="font-medium text-gray-600">Referencia:</dt>
+                    <dd><a href="{% url 'shipment-detail' tracking.shipment.id %}" class="text-blue-600 hover:underline">{{ tracking.shipment.reference }}</a></dd>
+                </div>
+                <div><dt class="font-medium text-gray-600">Cliente:</dt><dd>{{ tracking.shipment.client.name }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Mercancía:</dt><dd>{{ tracking.shipment.merchandise|default:"N/A" }}</dd></div>
+                <div><dt class="font-medium text-gray-600">Tipo:</dt><dd>{{ tracking.shipment.get_type_display }}</dd></div>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-3 text-gray-700">Revisiones Relacionadas</h3>
+        {% if tracking.revisions.all %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Hora</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Asignado</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Notas</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for revision in tracking.revisions.all %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2 text-sm">{{ revision.date|date:"d/m/Y" }}</td>
+                        <td class="px-4 py-2 text-sm">{{ revision.time|time:"H:i"|default:"N/A" }}</td>
+                        <td class="px-4 py-2 text-sm">{{ revision.status }}</td>
+                        <td class="px-4 py-2 text-sm">{{ revision.assigned_to.username }}</td>
+                        <td class="px-4 py-2 text-sm">{{ revision.notes|truncatewords:10|default:"Sin notas" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-gray-500">No hay revisiones registradas</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,219 @@
+{% extends 'base_client.html' %}
+
+{% block title %}Mi Portal - {{ client.company }}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Mi Portal</h1>
+            <p class="text-gray-500">{{ client.company }}{% if client.rfc %} - RFC: {{ client.rfc }}{% endif %}</p>
+        </div>
+        <div class="text-sm text-gray-500">
+            {{ now|date:"d/m/Y H:i" }}
+        </div>
+    </div>
+
+    <!-- Stats Cards - Operaciones del Mes -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">
+            Operaciones de {{ now|date:"F Y" }}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Total del Mes -->
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-blue-500 text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-blue-600">Total del Mes</p>
+                        <p class="text-3xl font-bold text-blue-900">{{ stats.total_month }}</p>
+                        <p class="text-xs text-blue-500">
+                            IMP: {{ stats.shipments_imp_month }} | EXP: {{ stats.shipments_exp_month }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operaciones Pendientes -->
+            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg p-4">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-yellow-500 text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-yellow-600">Pendientes</p>
+                        <p class="text-3xl font-bold text-yellow-900">{{ stats.shipments_pending }}</p>
+                        <p class="text-xs text-yellow-500">Operaciones en proceso</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- En Progreso -->
+            <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg p-4">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-indigo-500 text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-indigo-600">Pasos En Progreso</p>
+                        <p class="text-3xl font-bold text-indigo-900">{{ stats.trackings_in_progress }}</p>
+                        <p class="text-xs text-indigo-500">Pendientes: {{ stats.trackings_pending }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completados -->
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-green-500 text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-green-600">Concluidos</p>
+                        <p class="text-3xl font-bold text-green-900">{{ stats.shipments_completed }}</p>
+                        <p class="text-xs text-green-500">Operaciones finalizadas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Operaciones Pendientes con Timeline -->
+    <div class="bg-white rounded-lg shadow-md">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-900">Operaciones en Proceso</h2>
+            <p class="text-sm text-gray-500">Ultimas 5 operaciones pendientes con su progreso</p>
+        </div>
+
+        <div class="divide-y divide-gray-200">
+            {% for item in pending_shipments %}
+            <div class="p-6">
+                <!-- Header del despacho -->
+                <div class="flex flex-wrap items-center justify-between mb-4">
+                    <div class="flex items-center space-x-4">
+                        <span class="inline-flex px-3 py-1 text-sm font-medium rounded-full
+                            {% if item.shipment.type == 'IMP' %}bg-green-100 text-green-800
+                            {% else %}bg-purple-100 text-purple-800{% endif %}">
+                            {{ item.shipment.type }}
+                        </span>
+                        <div>
+                            <p class="text-lg font-semibold text-gray-900">{{ item.shipment.reference }}</p>
+                            {% if item.shipment.reference_client %}
+                            <p class="text-sm text-gray-500">Ref. Cliente: {{ item.shipment.reference_client }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="text-right mt-2 sm:mt-0">
+                        <p class="text-sm text-gray-500">Fecha de arribo</p>
+                        <p class="text-sm font-medium text-gray-900">{{ item.shipment.arrival_date|date:"d/m/Y" }}</p>
+                    </div>
+                </div>
+
+                <!-- Informacion adicional -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
+                    {% if item.shipment.merchandise %}
+                    <div>
+                        <p class="text-gray-500">Mercancia</p>
+                        <p class="font-medium text-gray-900">{{ item.shipment.merchandise|truncatechars:30 }}</p>
+                    </div>
+                    {% endif %}
+                    {% if item.shipment.terminal %}
+                    <div>
+                        <p class="text-gray-500">Terminal</p>
+                        <p class="font-medium text-gray-900">{{ item.shipment.terminal.text }}</p>
+                    </div>
+                    {% endif %}
+                    {% if item.shipment.line %}
+                    <div>
+                        <p class="text-gray-500">Linea</p>
+                        <p class="font-medium text-gray-900">{{ item.shipment.line.text }}</p>
+                    </div>
+                    {% endif %}
+                    {% if item.current_step %}
+                    <div>
+                        <p class="text-gray-500">Paso Actual</p>
+                        <p class="font-medium text-indigo-600">{{ item.current_step.description|truncatechars:25 }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Barra de progreso -->
+                <div class="mb-2">
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-600">Progreso</span>
+                        <span class="font-medium text-gray-900">{{ item.completed_steps }}/{{ item.total_steps }} pasos ({{ item.progress_percent }}%)</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="h-3 rounded-full transition-all duration-500
+                            {% if item.progress_percent >= 75 %}bg-green-500
+                            {% elif item.progress_percent >= 50 %}bg-blue-500
+                            {% elif item.progress_percent >= 25 %}bg-yellow-500
+                            {% else %}bg-gray-400{% endif %}"
+                            style="width: {{ item.progress_percent }}%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="px-6 py-12 text-center">
+                <svg class="mx-auto h-16 w-16 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <p class="mt-4 text-lg font-medium text-gray-900">Sin operaciones pendientes</p>
+                <p class="mt-1 text-sm text-gray-500">Todas tus operaciones han sido completadas</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Resumen de Estadisticas -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Resumen de Pasos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Pasos Pendientes -->
+            <div class="text-center p-4 bg-yellow-50 rounded-lg">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-yellow-100 text-yellow-600 mb-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <p class="text-3xl font-bold text-yellow-800">{{ stats.trackings_pending }}</p>
+                <p class="text-sm text-yellow-600">Pasos Pendientes</p>
+            </div>
+
+            <!-- Pasos En Progreso -->
+            <div class="text-center p-4 bg-blue-50 rounded-lg">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 mb-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <p class="text-3xl font-bold text-blue-800">{{ stats.trackings_in_progress }}</p>
+                <p class="text-sm text-blue-600">Pasos En Progreso</p>
+            </div>
+
+            <!-- Pasos Completados -->
+            <div class="text-center p-4 bg-green-50 rounded-lg">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-100 text-green-600 mb-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <p class="text-3xl font-bold text-green-800">{{ stats.trackings_completed }}</p>
+                <p class="text-sm text-green-600">Pasos Completados</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

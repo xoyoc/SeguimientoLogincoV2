@@ -1,0 +1,218 @@
+[
+  {
+    "model": "lines.line",
+    "pk": 1,
+    "fields": {
+      "text": "Maersk Line",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 2,
+    "fields": {
+      "text": "HAMBURG SUD DE MEXICO, S.A. DE C.V.",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 3,
+    "fields": {
+      "text": "HAPAG-LLOYD MEXICO S.A. de C.V.",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 4,
+    "fields": {
+      "text": "COSCO CONTAINER LINES AMERICAS",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 5,
+    "fields": {
+      "text": "CHINA SHIPPING CONTAINER LINE",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 6,
+    "fields": {
+      "text": "Evergreen Shipping Agency",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 7,
+    "fields": {
+      "text": "Hyundai Merchant Marine",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 8,
+    "fields": {
+      "text": "Kawasaki Kisen Kaisha Ltd.",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 9,
+    "fields": {
+      "text": "Yusen Logistics Co. Ltd.",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 10,
+    "fields": {
+      "text": "APL Logistics",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 11,
+    "fields": {
+      "text": "CMA CGM Logistics",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 12,
+    "fields": {
+      "text": "PENDIENTE",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 13,
+    "fields": {
+      "text": "Pacific International Line",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 14,
+    "fields": {
+      "text": "Mediterranean Shipping Company S.A.",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 15,
+    "fields": {
+      "text": "MITSHUI O.S.K. LINE",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 16,
+    "fields": {
+      "text": "WAN HAI LINES LTD.",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 17,
+    "fields": {
+      "text": "OCEAN NETWORK EXPRESS",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 18,
+    "fields": {
+      "text": "Mexshipping Agencia S.A. de C.V.",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 19,
+    "fields": {
+      "text": "ORIENT OVERSEAS CONTAINER LINE",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 20,
+    "fields": {
+      "text": "BAL CONTAINER LINE CO. LIMITED",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 21,
+    "fields": {
+      "text": "XPRESS FEEDER LINES",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 22,
+    "fields": {
+      "text": "YANG MING",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 23,
+    "fields": {
+      "text": "SEALAND SHIPPING DMCC",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  },
+  {
+    "model": "lines.line",
+    "pk": 24,
+    "fields": {
+      "text": "ZIM MEXICO INTEGRATED SHIPPING SERVICES S de RL de CV",
+      "created_at": "2026-01-07T15:47:52.496465+00:00",
+      "updated_at": "2026-01-07T15:47:52.496465+00:00"
+    }
+  }
+]

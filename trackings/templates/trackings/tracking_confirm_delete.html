@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Seguimiento{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-md rounded-lg p-6 max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold text-red-600 mb-6">Confirmar Eliminación</h1>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+        <p class="text-yellow-700">
+            ⚠️ ¿Estás seguro que deseas eliminar este seguimiento? Esta acción no se puede deshacer.
+        </p>
+    </div>
+
+    <div class="mb-6 p-4 bg-gray-50 rounded-md">
+        <h3 class="font-semibold text-gray-700 mb-3">Información del Seguimiento:</h3>
+        <dl class="space-y-2">
+            <div><dt class="font-medium text-gray-600">Envío:</dt><dd>{{ tracking.shipment.reference }}</dd></div>
+            <div><dt class="font-medium text-gray-600">Cliente:</dt><dd>{{ tracking.shipment.client.name }}</dd></div>
+            <div><dt class="font-medium text-gray-600">Paso:</dt><dd>{{ tracking.step }}</dd></div>
+            <div><dt class="font-medium text-gray-600">Estado:</dt><dd>{{ tracking.status }}</dd></div>
+            <div><dt class="font-medium text-gray-600">Asignado a:</dt><dd>{{ tracking.assigned_to.username }}</dd></div>
+        </dl>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="flex justify-end space-x-3">
+            <a href="{% url 'tracking-detail' tracking.id %}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-md">
+                Cancelar
+            </a>
+            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md">
+                Eliminar
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

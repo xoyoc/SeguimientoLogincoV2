@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ department.name }} - Departamento{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+            <span class="w-12 h-12 rounded-full flex items-center justify-center" style="background-color: {{ department.color }}20; border: 2px solid {{ department.color }}">
+                <svg class="w-6 h-6" style="color: {{ department.color }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                </svg>
+            </span>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">{{ department.name }}</h1>
+                <p class="text-sm text-gray-500">
+                    {% if department.code %}Codigo: {{ department.code }} | {% endif %}
+                    {% if department.is_active %}
+                    <span class="text-green-600">Activo</span>
+                    {% else %}
+                    <span class="text-gray-500">Inactivo</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="flex space-x-3">
+            <a href="{% url 'department-edit' department.pk %}" class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                </svg>
+                Editar
+            </a>
+            <a href="{% url 'department-list' %}" class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Estadisticas rapidas -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-lg shadow-md p-4">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-blue-100">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm text-gray-500">Usuarios</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ users|length }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-4">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-indigo-100">
+                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm text-gray-500">Pasos Asignados</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ steps|length }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-4">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-green-100">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm text-gray-500">Embarques</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ shipments_count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-4">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-emerald-100">
+                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm text-gray-500">Trackings Completados</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ trackings_completed }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Usuarios del departamento -->
+        <div class="bg-white rounded-lg shadow-md">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-medium text-gray-900">Usuarios del Departamento</h2>
+            </div>
+            <div class="p-6">
+                {% if users %}
+                <ul class="divide-y divide-gray-200">
+                    {% for user in users %}
+                    <li class="py-3 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                                <span class="text-sm font-medium text-gray-600">{{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1" }}</span>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm font-medium text-gray-900">{{ user.first_name }} {{ user.last_name }}</p>
+                                <p class="text-sm text-gray-500">{{ user.username }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            {% if user.is_staff %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">Staff</span>
+                            {% endif %}
+                            {% if user.is_superuser %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">Admin</span>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-center text-gray-500 py-4">No hay usuarios asignados a este departamento</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Pasos asignados -->
+        <div class="bg-white rounded-lg shadow-md">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-medium text-gray-900">Pasos Asignados</h2>
+            </div>
+            <div class="p-6">
+                {% if steps %}
+                <ul class="divide-y divide-gray-200">
+                    {% for step in steps %}
+                    <li class="py-3 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-medium text-indigo-600">
+                                {{ step.number }}
+                            </span>
+                            <span class="ml-3 text-sm text-gray-900">{{ step.description }}</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            {% if step.imp %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">IMP</span>
+                            {% endif %}
+                            {% if step.exp %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">EXP</span>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-center text-gray-500 py-4">No hay pasos asignados a este departamento</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Descripcion -->
+    {% if department.description %}
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-lg font-medium text-gray-900 mb-3">Descripcion</h2>
+        <p class="text-gray-600">{{ department.description }}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

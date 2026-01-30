@@ -1,0 +1,142 @@
+[
+    {
+        "model": "clients.documentcategory",
+        "pk": 1,
+        "fields": {
+            "code": "ID_LEGAL",
+            "name": "Identificación Oficial y Representación Legal",
+            "description": "INE o pasaporte del representante legal, poder notarial o acta de asamblea que acredite la representación legal",
+            "is_required": true,
+            "validity_months": null,
+            "order": 1,
+            "created_at": "2026-01-16T00:00:00Z",
+            "updated_at": "2026-01-16T00:00:00Z"
+        }
+    },
+    {
+        "model": "clients.documentcategory",
+        "pk": 2,
+        "fields": {
+            "code": "CONSTITUTIVA",
+            "name": "Acta Constitutiva",
+            "description": "Acta constitutiva de la empresa inscrita en el Registro Público de Comercio y sus reformas estatutarias",
+            "is_required": true,
+            "validity_months": null,
+            "order": 2,
+            "created_at": "2026-01-16T00:00:00Z",
+            "updated_at": "2026-01-16T00:00:00Z"
+        }
+    },
+    {
+        "model": "clients.documentcategory",
+        "pk": 3,
+        "fields": {
+            "code": "DOMICILIO_FISCAL",
+            "name": "Comprobante de Domicilio Fiscal",
+            "description": "Recibo de luz, agua, teléfono, estado de cuenta bancario o predial del domicilio fiscal con antigüedad no mayor a 3 meses",
+            "is_required": true,
+            "validity_months": 3,
+            "order": 3,
+            "created_at": "2026-01-16T00:00:00Z",
+            "updated_at": "2026-01-16T00:00:00Z"
+        }
+    },
+    {
+        "model": "clients.documentcategory",
+        "pk": 4,
+        "fields": {
+            "code": "DOMICILIO_OPERACIONES",
+            "name": "Comprobante de Domicilio de Operaciones",
+            "description": "Comprobante del lugar donde se realizan las operaciones de comercio exterior (si difiere del fiscal)",
+            "is_required": true,
+            "validity_months": 3,
+            "order": 4,
+            "created_at": "2026-01-16T00:00:00Z",
+            "updated_at": "2026-01-16T00:00:00Z"
+        }
+    },
+    {
+        "model": "clients.documentcategory",
+        "pk": 5,
+        "fields": {
+            "code": "FOTOGRAFIAS",
+            "name": "Fotografías del Lugar de Operaciones",
+            "description": "Fotografías de la fachada del inmueble, maquinaria, equipo y personal trabajando en las instalaciones",
+            "is_required": true,
+            "validity_months": 12,
+            "order": 5,
+            "created_at": "2026-01-16T00:00:00Z",
+            "updated_at": "2026-01-16T00:00:00Z"
+        }
+    },
+    {
+        "model": "clients.documentcategory",
+        "pk": 6,
+        "fields": {
+            "code": "PROPIEDAD_INMUEBLES",
+            "name": "Documentos de Propiedad o Posesión de Inmuebles",
+            "description": "Escrituras, contrato de arrendamiento, comodato u otro documento que acredite la legal posesión del inmueble",
+            "is_required": true,
+            "validity_months": null,
+            "order": 6,
+            "created_at": "2026-01-16T00:00:00Z",
+            "updated_at": "2026-01-16T00:00:00Z"
+        }
+    },
+    {
+        "model": "clients.documentcategory",
+        "pk": 7,
+        "fields": {
+            "code": "PROPIEDAD_ACTIVOS",
+            "name": "Documentos de Propiedad o Posesión de Activos",
+            "description": "Facturas, contratos de arrendamiento o documentos que acrediten la propiedad de maquinaria, equipo y vehículos",
+            "is_required": false,
+            "validity_months": null,
+            "order": 7,
+            "created_at": "2026-01-16T00:00:00Z",
+            "updated_at": "2026-01-16T00:00:00Z"
+        }
+    },
+    {
+        "model": "clients.documentcategory",
+        "pk": 8,
+        "fields": {
+            "code": "SITUACION_FISCAL",
+            "name": "Constancia de Situación Fiscal",
+            "description": "Constancia de Situación Fiscal emitida por el SAT con vigencia no mayor a 3 meses",
+            "is_required": true,
+            "validity_months": 3,
+            "order": 8,
+            "created_at": "2026-01-16T00:00:00Z",
+            "updated_at": "2026-01-16T00:00:00Z"
+        }
+    },
+    {
+        "model": "clients.documentcategory",
+        "pk": 9,
+        "fields": {
+            "code": "RFC",
+            "name": "Cédula de Identificación Fiscal",
+            "description": "Cédula de identificación fiscal con clave del RFC",
+            "is_required": true,
+            "validity_months": null,
+            "order": 9,
+            "created_at": "2026-01-16T00:00:00Z",
+            "updated_at": "2026-01-16T00:00:00Z"
+        }
+    },
+    {
+        "model": "clients.documentcategory",
+        "pk": 10,
+        "fields": {
+            "code": "OTROS",
+            "name": "Otros Documentos",
+            "description": "Documentos adicionales del cliente que no corresponden a las categorías anteriores",
+            "is_required": false,
+            "validity_months": null,
+            "order": 99,
+            "created_at": "2026-01-16T00:00:00Z",
+            "updated_at": "2026-01-16T00:00:00Z"
+        }
+    }
+]

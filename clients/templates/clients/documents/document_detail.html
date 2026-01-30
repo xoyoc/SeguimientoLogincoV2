@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ document.name }} - {{ client.company }}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="mb-6">
+        <a href="{% url 'client-expediente' client.pk %}" class="text-indigo-600 hover:text-indigo-800 text-sm">&larr; Volver al expediente</a>
+        <h1 class="text-2xl font-bold text-gray-900 mt-2">{{ document.name }}</h1>
+        <p class="text-gray-600">{{ client.company }}</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-start mb-6">
+            <span class="inline-flex px-3 py-1 text-sm rounded-full {% if document.status == 'APROBADO' %}bg-green-100 text-green-800{% elif document.status == 'PENDIENTE' %}bg-yellow-100 text-yellow-800{% elif document.status == 'RECHAZADO' %}bg-red-100 text-red-800{% else %}bg-gray-100 text-gray-800{% endif %}">
+                {{ document.get_status_display }}
+            </span>
+            <div class="flex space-x-2">
+                <a href="{% url 'client-document-download' client.pk document.pk %}" class="px-3 py-1 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700" target="_blank">
+                    Descargar
+                </a>
+                <a href="{% url 'client-document-review' client.pk document.pk %}" class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                    Revisar
+                </a>
+            </div>
+        </div>
+
+        <dl class="grid grid-cols-2 gap-4">
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Categoria</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ document.category.name }}</dd>
+            </div>
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Archivo Original</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ document.original_filename }}</dd>
+            </div>
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Tamano</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ document.file_size|filesizeformat }}</dd>
+            </div>
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Tipo</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ document.mime_type }}</dd>
+            </div>
+            {% if document.document_date %}
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Fecha del Documento</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ document.document_date|date:"d/m/Y" }}</dd>
+            </div>
+            {% endif %}
+            {% if document.expiration_date %}
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Vencimiento</dt>
+                <dd class="mt-1 text-sm {% if document.is_expired %}text-red-600{% else %}text-gray-900{% endif %}">
+                    {{ document.expiration_date|date:"d/m/Y" }}
+                    {% if document.days_until_expiration %}
+                    ({{ document.days_until_expiration }} dias)
+                    {% endif %}
+                </dd>
+            </div>
+            {% endif %}
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Subido por</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ document.uploaded_by.get_full_name|default:document.uploaded_by.username }}</dd>
+            </div>
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Fecha de Subida</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ document.created_at|date:"d/m/Y H:i" }}</dd>
+            </div>
+        </dl>
+
+        {% if document.description %}
+        <div class="mt-4 pt-4 border-t">
+            <dt class="text-sm font-medium text-gray-500">Descripcion</dt>
+            <dd class="mt-1 text-sm text-gray-900">{{ document.description }}</dd>
+        </div>
+        {% endif %}
+
+        {% if document.reviewed_by %}
+        <div class="mt-4 pt-4 border-t">
+            <h3 class="text-sm font-medium text-gray-700 mb-2">Revision</h3>
+            <dl class="grid grid-cols-2 gap-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Revisado por</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ document.reviewed_by.get_full_name|default:document.reviewed_by.username }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Fecha de Revision</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ document.reviewed_at|date:"d/m/Y H:i" }}</dd>
+                </div>
+            </dl>
+            {% if document.review_notes %}
+            <div class="mt-2">
+                <dt class="text-sm font-medium text-gray-500">Notas</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ document.review_notes }}</dd>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

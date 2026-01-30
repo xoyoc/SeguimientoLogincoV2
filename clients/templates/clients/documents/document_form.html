@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - {{ client.company }}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="mb-6">
+        <a href="{% url 'client-expediente' client.pk %}" class="text-indigo-600 hover:text-indigo-800 text-sm">&larr; Volver al expediente</a>
+        <h1 class="text-2xl font-bold text-gray-900 mt-2">{{ title }}</h1>
+        <p class="text-gray-600">{{ client.company }} - RFC: {{ client.rfc|default:"Sin RFC" }}</p>
+    </div>
+
+    <!-- Informacion RGCE 1.4.14 -->
+    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+        <div class="flex">
+            <svg class="w-5 h-5 text-blue-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+                <p class="text-sm text-blue-700 font-medium">Expediente Electronico RGCE 1.4.14</p>
+                <p class="text-sm text-blue-600 mt-1">Los documentos se almacenan de forma segura y se verificara su vigencia automaticamente.</p>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="space-y-6" id="document-form">
+        {% csrf_token %}
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Informacion del Documento</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Categoria -->
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        {{ form.category.label }} <span class="text-red-500">*</span>
+                    </label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.category.errors.0 }}</p>
+                    {% endif %}
+                    <div id="category-info" class="mt-2 p-3 bg-gray-50 rounded-lg hidden">
+                        <p class="text-sm text-gray-600" id="category-description"></p>
+                        <div class="flex items-center mt-2 space-x-4">
+                            <span class="text-xs" id="category-required"></span>
+                            <span class="text-xs" id="category-validity"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nombre -->
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        {{ form.name.label }} <span class="text-red-500">*</span>
+                    </label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.name.errors.0 }}</p>
+                    {% endif %}
+                    <p class="mt-1 text-xs text-gray-500">Ejemplo: Acta Constitutiva 2024, CSF Enero 2025</p>
+                </div>
+
+                <!-- Descripcion -->
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ form.description.label }}</label>
+                    {{ form.description }}
+                    <p class="mt-1 text-xs text-gray-500">Informacion adicional relevante del documento</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Archivo con Drag & Drop -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Archivo</h2>
+
+            <div id="drop-zone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-indigo-400 transition-colors cursor-pointer">
+                <input type="file" name="file" id="file-input" class="hidden" accept=".pdf,.jpg,.jpeg,.png,.tiff,.tif">
+
+                <div id="upload-prompt">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                    <p class="mt-2 text-sm text-gray-600">
+                        <span class="font-medium text-indigo-600 hover:text-indigo-500">Haz clic para seleccionar</span>
+                        o arrastra y suelta aqui
+                    </p>
+                    <p class="mt-1 text-xs text-gray-500">PDF, JPG, PNG, TIFF hasta 10MB</p>
+                </div>
+
+                <div id="file-preview" class="hidden">
+                    <div class="flex items-center justify-center space-x-4">
+                        <div id="preview-icon">
+                            <svg class="h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-sm font-medium text-gray-900" id="file-name"></p>
+                            <p class="text-xs text-gray-500" id="file-size"></p>
+                        </div>
+                        <button type="button" id="remove-file" class="text-red-500 hover:text-red-700">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {% if form.file.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ form.file.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Fechas -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Fechas</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ form.document_date.label }}</label>
+                    {{ form.document_date }}
+                    <p class="mt-1 text-xs text-gray-500">Fecha de emision o firma del documento</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ form.expiration_date.label }}</label>
+                    {{ form.expiration_date }}
+                    <p class="mt-1 text-xs text-gray-500">Si se deja vacio, se calcula segun la categoria</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="flex justify-between items-center">
+            <a href="{% url 'client-expediente' client.pk %}" class="text-gray-600 hover:text-gray-800 text-sm">
+                Cancelar
+            </a>
+            <div class="flex space-x-3">
+                <button type="submit" name="action" value="save" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium">
+                    <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                    Subir Documento
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const uploadPrompt = document.getElementById('upload-prompt');
+    const filePreview = document.getElementById('file-preview');
+    const fileName = document.getElementById('file-name');
+    const fileSize = document.getElementById('file-size');
+    const removeFile = document.getElementById('remove-file');
+    const categorySelect = document.querySelector('select[name="category"]');
+    const categoryInfo = document.getElementById('category-info');
+
+    // Category descriptions
+    const categoryData = {
+        {% for cat in categories %}
+        '{{ cat.pk }}': {
+            'description': '{{ cat.description|escapejs }}',
+            'required': {{ cat.is_required|yesno:"true,false" }},
+            'validity': {{ cat.validity_months|default:"null" }}
+        },
+        {% endfor %}
+    };
+
+    // Show category info when selected
+    if (categorySelect) {
+        categorySelect.addEventListener('change', function() {
+            const catId = this.value;
+            if (catId && categoryData[catId]) {
+                const data = categoryData[catId];
+                document.getElementById('category-description').textContent = data.description || 'Sin descripcion';
+                document.getElementById('category-required').innerHTML = data.required
+                    ? '<span class="text-red-600 font-medium">Documento requerido</span>'
+                    : '<span class="text-gray-500">Documento opcional</span>';
+                document.getElementById('category-validity').innerHTML = data.validity
+                    ? '<span class="text-blue-600">Vigencia: ' + data.validity + ' meses</span>'
+                    : '<span class="text-gray-500">Sin vigencia definida</span>';
+                categoryInfo.classList.remove('hidden');
+            } else {
+                categoryInfo.classList.add('hidden');
+            }
+        });
+    }
+
+    // Drag and drop handlers
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight() {
+        dropZone.classList.add('border-indigo-500', 'bg-indigo-50');
+    }
+
+    function unhighlight() {
+        dropZone.classList.remove('border-indigo-500', 'bg-indigo-50');
+    }
+
+    // Handle file drop
+    dropZone.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            updatePreview(files[0]);
+        }
+    }
+
+    // Handle click to select
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            updatePreview(this.files[0]);
+        }
+    });
+
+    function updatePreview(file) {
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        uploadPrompt.classList.add('hidden');
+        filePreview.classList.remove('hidden');
+
+        // Update icon based on file type
+        const previewIcon = document.getElementById('preview-icon');
+        if (file.type.startsWith('image/')) {
+            previewIcon.innerHTML = `
+                <svg class="h-12 w-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>`;
+        } else {
+            previewIcon.innerHTML = `
+                <svg class="h-12 w-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>`;
+        }
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // Remove file
+    removeFile.addEventListener('click', function(e) {
+        e.stopPropagation();
+        fileInput.value = '';
+        uploadPrompt.classList.remove('hidden');
+        filePreview.classList.add('hidden');
+    });
+});
+</script>
+{% endblock %}

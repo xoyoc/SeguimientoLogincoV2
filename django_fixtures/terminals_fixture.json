@@ -1,0 +1,47 @@
+[
+  {
+    "model": "terminals.terminal",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "text": "APM Terminals Lázaro Cárdenas - 257"
+    }
+  },
+  {
+    "model": "terminals.terminal",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "text": "L.C. Terminal Portuaria de Contenedores - 200"
+    }
+  },
+  {
+    "model": "terminals.terminal",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "text": "LOGISTICS GPS-221"
+    }
+  },
+  {
+    "model": "terminals.terminal",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "text": "SSA LÁZARO CARDENAS S.A. DE C.V - 259"
+    }
+  },
+  {
+    "model": "terminals.terminal",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-01-07T15:48:57.173593+00:00",
+      "updated_at": "2026-01-07T15:48:57.173593+00:00",
+      "text": "UTTSA SA DE CV -173"
+    }
+  }
+]

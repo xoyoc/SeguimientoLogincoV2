@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Revisiones{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-md rounded-lg p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Revisiones</h1>
+        <a href="{% url 'revision-create' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+            + Nueva Revisión
+        </a>
+    </div>
+
+    <form method="get" class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+        <input type="text" name="search" value="{{ search }}" placeholder="Buscar..." 
+               class="border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500">
+        
+        <input type="text" name="status" value="{{ status_filter }}" placeholder="Filtrar por estado" 
+               class="border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500">
+        
+        <input type="number" name="step" value="{{ step_filter }}" placeholder="Filtrar por paso" min="1"
+               class="border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500">
+        
+        <button type="submit" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md">Filtrar</button>
+    </form>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Seguimiento</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cliente</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Paso</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Asignado</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for revision in revisions %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        {{ revision.date|date:"d/m/Y" }}<br>
+                        <span class="text-xs text-gray-500">{{ revision.time|time:"H:i"|default:"" }}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="{% url 'tracking-detail' revision.tracking.id %}" class="text-blue-600 hover:underline">
+                            {{ revision.tracking.shipment.reference }}
+                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        {{ revision.client|default:"N/A" }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        Paso {{ revision.step }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">{{ revision.status }}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        {{ revision.assigned_to.username }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <a href="{% url 'revision-detail' revision.id %}" class="text-blue-600 hover:underline mr-3">Ver</a>
+                        <a href="{% url 'revision-edit' revision.id %}" class="text-green-600 hover:underline mr-3">Editar</a>
+                        <a href="{% url 'revision-delete' revision.id %}" class="text-red-600 hover:underline">Eliminar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="px-6 py-4 text-center text-gray-500">No hay revisiones disponibles</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if is_paginated %}
+    <div class="mt-6 flex justify-center">
+        <nav class="flex items-center space-x-2">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Primera</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Anterior</a>
+            {% endif %}
+            
+            <span class="px-3 py-2">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Siguiente</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Última</a>
+            {% endif %}
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

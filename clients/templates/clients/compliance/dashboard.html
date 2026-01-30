@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard de Cumplimiento - RGCE 1.4.14{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Dashboard de Cumplimiento</h1>
+            <p class="text-gray-600">RGCE 1.4.14 - Expedientes Electronicos</p>
+        </div>
+        <a href="{% url 'client-list' %}" class="text-indigo-600 hover:text-indigo-800">Ver todos los clientes</a>
+    </div>
+
+    <!-- Estadisticas -->
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-2xl font-bold text-gray-900">{{ stats.total_clients }}</div>
+            <div class="text-sm text-gray-500">Clientes Activos</div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-2xl font-bold text-green-600">{{ stats.complete_expedientes }}</div>
+            <div class="text-sm text-gray-500">Expedientes Completos</div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-2xl font-bold text-red-600">{{ stats.incomplete_expedientes }}</div>
+            <div class="text-sm text-gray-500">Expedientes Incompletos</div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-2xl font-bold text-yellow-600">{{ stats.docs_expiring_soon }}</div>
+            <div class="text-sm text-gray-500">Por Vencer (30 dias)</div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-2xl font-bold text-blue-600">{{ stats.docs_pending_review }}</div>
+            <div class="text-sm text-gray-500">Pendientes de Revision</div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-2xl font-bold text-red-600">{{ stats.docs_expired }}</div>
+            <div class="text-sm text-gray-500">Documentos Vencidos</div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Documentos por Vencer -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Documentos por Vencer</h2>
+            {% if expiring_soon %}
+            <div class="space-y-3 max-h-96 overflow-y-auto">
+                {% for doc in expiring_soon %}
+                <div class="flex items-center justify-between p-3 border rounded-lg bg-yellow-50">
+                    <div>
+                        <a href="{% url 'client-expediente' doc.client.pk %}" class="text-sm font-medium text-gray-900 hover:text-indigo-600">
+                            {{ doc.client.company }}
+                        </a>
+                        <p class="text-xs text-gray-500">{{ doc.category.name }}</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm font-medium {% if doc.days_until_expiration <= 7 %}text-red-600{% else %}text-yellow-600{% endif %}">
+                            {{ doc.days_until_expiration }} dias
+                        </span>
+                        <p class="text-xs text-gray-500">{{ doc.expiration_date|date:"d/m/Y" }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-gray-500 text-center py-8">No hay documentos por vencer</p>
+            {% endif %}
+        </div>
+
+        <!-- Documentos Pendientes de Revision -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Pendientes de Revision</h2>
+            {% if pending_review %}
+            <div class="space-y-3 max-h-96 overflow-y-auto">
+                {% for doc in pending_review %}
+                <div class="flex items-center justify-between p-3 border rounded-lg">
+                    <div>
+                        <a href="{% url 'client-expediente' doc.client.pk %}" class="text-sm font-medium text-gray-900 hover:text-indigo-600">
+                            {{ doc.client.company }}
+                        </a>
+                        <p class="text-xs text-gray-500">{{ doc.name }}</p>
+                    </div>
+                    <a href="{% url 'client-document-review' doc.client.pk doc.pk %}" class="px-3 py-1 bg-indigo-600 text-white text-xs rounded-md hover:bg-indigo-700">
+                        Revisar
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-gray-500 text-center py-8">No hay documentos pendientes de revision</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Clientes con Expediente Incompleto -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Clientes con Expediente Incompleto</h2>
+        {% if incomplete_clients %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cliente</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">RFC</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Docs Total</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Aprobados</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Pendientes</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Vencidos</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Accion</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% for client in incomplete_clients %}
+                    <tr>
+                        <td class="px-4 py-3">
+                            <a href="{% url 'client-expediente' client.pk %}" class="text-indigo-600 hover:text-indigo-800 font-medium">
+                                {{ client.company }}
+                            </a>
+                        </td>
+                        <td class="px-4 py-3 text-sm text-gray-500 font-mono">{{ client.rfc|default:"-" }}</td>
+                        <td class="px-4 py-3 text-sm text-gray-900">{{ client.total_docs }}</td>
+                        <td class="px-4 py-3 text-sm text-green-600">{{ client.approved_docs }}</td>
+                        <td class="px-4 py-3 text-sm text-yellow-600">{{ client.pending_docs }}</td>
+                        <td class="px-4 py-3 text-sm text-red-600">{{ client.expired_docs }}</td>
+                        <td class="px-4 py-3">
+                            <a href="{% url 'client-expediente' client.pk %}" class="text-xs text-indigo-600 hover:text-indigo-800">
+                                Ver expediente
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-gray-500 text-center py-8">Todos los clientes tienen su expediente completo</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
